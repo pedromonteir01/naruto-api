@@ -1,4 +1,5 @@
 const pool = require('../config/database.config');
+const verifyDate = require('../utilities/verifyDate');
 
 const getAllCharacters = async (req, res) => {
     try {
@@ -48,6 +49,10 @@ const createCharacter = async (req, res) => {
         errors.push('Sexo inválido, H para homem, M para mulher, O para outro');
     }
 
+    if(!verifyDate(birthdate)) {
+        errors.push('Data inválida, padrão (yyyy-mm-dd)');
+    }
+
     if (errors.length > 0) {
         return res.status(400).send(errors[0]); //retorna somente o primeiro erro por req para poupar gasto de memória
     }
@@ -87,6 +92,10 @@ const updateCharacter = async (req, res) => {
 
     if (typeof gender !== 'string' || gender.length != 1) {
         errors.push('Sexo inválido, H para homem, M para mulher, O para outro');
+    }
+
+    if(!verifyDate(birthdate)) {
+        errors.push('Data inválida, padrão (yyyy-mm-dd)');
     }
 
     if (errors.length > 0) {

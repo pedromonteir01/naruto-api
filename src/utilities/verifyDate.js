@@ -15,3 +15,5 @@ const verifyDate = (dateString) => {
         date.getUTCDate() === day
     );
 }
+
+module.exports = verifyDate;
