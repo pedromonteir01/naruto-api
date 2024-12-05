@@ -3,7 +3,8 @@ const {
     getAllCharacters, 
     getCharacterById, 
     createCharacter,
-    updateCharacter
+    updateCharacter,
+    deleteCharacter
 } = require('../controllers/characters.controller');
 
 const charactersRoutes = Router(); 
@@ -12,5 +13,6 @@ charactersRoutes.get('/', getAllCharacters);
 charactersRoutes.get('/:id', getCharacterById);
 charactersRoutes.post('/', createCharacter);
 charactersRoutes.put('/:id', updateCharacter);
+charactersRoutes.delete('/:id', deleteCharacter);
 
 module.exports = charactersRoutes;
