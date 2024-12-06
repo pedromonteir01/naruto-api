@@ -58,10 +58,10 @@ const createKekkeiGenkai = async(req, res) => {
 
     try {
         const kekkeiGenkai = await pool.query(`
-            INSERT INTO kekkei_genkai(name, image, description) 
-            VALUES($1, $2, $3) 
+            INSERT INTO kekkei_genkai(name, image, description, generate_by_comunnity) 
+            VALUES($1, $2, $3, $4) 
             RETURNING *`,
-            [name, image, description]
+            [name, image, description, true]
         );
 
         return res.status(201).send(kekkeiGenkai.rows);
@@ -88,9 +88,9 @@ const updateKekkeiGenkai = async(req, res) => {
     try {
         const kekkeiGenkai = await pool.query(`
             UPDATE kekkei_genkai SET
-            name=$1, image=$2, description=$3
+            name=$1, image=$2, description=$3, generate_by_comunnity=$4
             RETURNING *`,
-            [name, image, description]
+            [name, image, description, false]
         );
 
         return res.status(200).send(kekkeiGenkai.rows);
