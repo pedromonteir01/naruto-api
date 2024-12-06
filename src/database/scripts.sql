@@ -17,12 +17,6 @@ CREATE TABLE affiliations (
     image TEXT NOT NULL
 );
 
-CREATE TABLE chakras (
-    name VARCHAR(15) PRIMARY KEY,
-    image TEXT NOT NULL,
-    description TEXT NOT NULL
-);
-
 CREATE TABLE kekkei_genkai (
     name VARCHAR(100) PRIMARY KEY,
     image TEXT NOT NULL,
