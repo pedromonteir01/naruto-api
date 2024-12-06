@@ -50,7 +50,7 @@ const createCharacter = async (req, res) => {
         errors.push('Sexo inválido, H para homem, M para mulher, O para outro');
     }
 
-    if(!verifyMetadata(metadata)) {
+    if(!await verifyMetadata(metadata)) {
         errors.push('Os dados de seu personagem estão inválidos');
     }
 

@@ -2,7 +2,7 @@ const pool = require('../config/database.config');
 
 const getAllKekkeiGenkais = async(req, res) => {
     try {
-        const kekkeiGenkais = await pool.query('SELECT * FROM kekkei_genkais');
+        const kekkeiGenkais = await pool.query('SELECT * FROM kekkei_genkai');
         if(kekkeiGenkais.rowCount === 0) {
             return res.status(404).send({ message: 'Nenhuma kekkei genkai encontrada' });
         } else {
@@ -16,7 +16,7 @@ const getAllKekkeiGenkais = async(req, res) => {
 const getKekkeiGenkai = async(req, res) => {
     const { name } = req.params;
     try {
-        const kekkeiGenkai = await pool.query('SELECT * FROM kekkei_genkais WHERE name=$1', [name]);
+        const kekkeiGenkai = await pool.query('SELECT * FROM kekkei_genkai WHERE name=$1', [name]);
         if(kekkeiGenkai.rowCount === 0) {
             return res.status(404).send({ message: 'Kekkei genkai não encontrada' });
         } else {
@@ -30,7 +30,7 @@ const getKekkeiGenkai = async(req, res) => {
 const getKekkeiGenkaiByName = async(req, res) => {
     const { name } = req.params;
     try {
-        const kekkeiGenkai = await pool.query('SELECT * FROM kekkei_genkais WHERE name LIKE $1', [`%${name}%`]);
+        const kekkeiGenkai = await pool.query('SELECT * FROM kekkei_genkai WHERE name LIKE $1', [`%${name}%`]);
         if(kekkeiGenkai.rowCount === 0) {
             return res.status(404).send({ message: 'Kekkei genkai não encontrada' });
         } else {
@@ -119,13 +119,13 @@ const deleteKekkeiGenkai = async(req, res) => {
 const verifyKekkeiGenkais = async(kekkeiGenkais) => {
     try {
         const { rows } = await pool.query(
-            `SELECT * FROM kekkei_genkais WHERE name = ANY($1);`,
+            `SELECT * FROM kekkei_genkai WHERE name = ANY($1);`,
             [kekkeiGenkais]
         );
 
         return rows.length === kekkeiGenkais.length;
     } catch(e) {
-        throw new Error('Erro de servidor');
+        throw new Error('Kekkei')
     }
 }
 

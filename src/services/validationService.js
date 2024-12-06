@@ -3,12 +3,12 @@ const { verifyKekkeiGenkais } = require('../controllers/kekkeiGenkai.controller'
 const test = {
     attributes: ['one'],
     chakras: ['two'],
-    kekkei_genkais: ['three'],
+    kekkei_genkais: 'none',
     kekkei_toutas: ['four'],
     affiliations: 'none',
 }
 
-const verifyMetadata = async(data) => {
+const verifyMetadata = async (data) => {
     const keys = Object.keys(data);
 
     //verifica se há todas as propriedades
@@ -25,11 +25,13 @@ const verifyMetadata = async(data) => {
     }
 
     //verifica as kekkei genkais
+    if (data.kekkei_genkais === 'none') {
+        return true;
+    }
     const isValid = await verifyKekkeiGenkais(data.kekkei_genkais);
-    if(!isValid) {
+    if (!isValid) {
         return false;
     }
-
 
     return true;
 };
@@ -49,7 +51,14 @@ const havePropierties = (keys) => {
     return hasAllRequired && hasNoExtras;
 }
 
-console.log(verifyMetadata(test));
+(async () => {
+    try {
+        let result = await verifyMetadata(test);
+        console.log(result);
+    } catch (e) {
+        console.log(e);
+    }
+})();
 
 
 module.exports = verifyMetadata;
