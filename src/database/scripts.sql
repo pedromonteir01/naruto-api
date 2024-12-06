@@ -14,17 +14,21 @@ CREATE TABLE characters (
 
 CREATE TABLE affiliations (
     name VARCHAR(256) PRIMARY KEY,
-    image TEXT NOT NULL
+    image TEXT NOT NULL,
+    description TEXT NOT NULL,
+    generate_by_comunnity BOOLEAN NOT NULL
 );
 
 CREATE TABLE kekkei_genkai (
     name VARCHAR(100) PRIMARY KEY,
     image TEXT NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    generate_by_comunnity BOOLEAN NOT NULL
 );
 
 CREATE TABLE kekkei_touta (
     name VARCHAR(15) PRIMARY KEY,
     image TEXT NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    generate_by_comunnity BOOLEAN NOT NULL
 );
