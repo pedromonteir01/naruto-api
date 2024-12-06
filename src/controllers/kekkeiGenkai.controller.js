@@ -90,7 +90,7 @@ const updateKekkeiGenkai = async(req, res) => {
             UPDATE kekkei_genkai SET
             name=$1, image=$2, description=$3, generate_by_comunnity=$4
             RETURNING *`,
-            [name, image, description, false]
+            [name, image, description, true]
         );
 
         return res.status(200).send(kekkeiGenkai.rows);
@@ -117,6 +117,7 @@ const deleteKekkeiGenkai = async(req, res) => {
 }
 
 const verifyKekkeiGenkais = async(kekkeiGenkais) => {
+    console.log('chegou');
     try {
         const { rows } = await pool.query(
             `SELECT * FROM kekkei_genkai WHERE name = ANY($1);`,
@@ -125,7 +126,7 @@ const verifyKekkeiGenkais = async(kekkeiGenkais) => {
 
         return rows.length === kekkeiGenkais.length;
     } catch(e) {
-        throw new Error('Kekkei')
+        return 'Erro de servidor, kekkei não encontrada';
     }
 }
 

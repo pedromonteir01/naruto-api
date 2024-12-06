@@ -54,6 +54,9 @@ const createCharacter = async (req, res) => {
         errors.push('Os dados de seu personagem estão inválidos');
     }
 
+    console.log('passou');
+    
+
     if(!verifyDate(birthdate)) {
         errors.push('Data inválida, padrão (yyyy-mm-dd)');
     }
@@ -61,7 +64,7 @@ const createCharacter = async (req, res) => {
     if (errors.length > 0) {
         return res.status(400).send(errors[0]); //retorna somente o primeiro erro por req para poupar gasto de memória
     }
-
+ /*
     try {
         const character = await pool.query(`
             INSERT INTO characters(name, description, image, metadata, gender, birthdate) 
@@ -74,7 +77,7 @@ const createCharacter = async (req, res) => {
         })
     } catch (e) {
         return res.status(500).send({ error: 'Erro de servidor' });
-    }
+    } */
 }
 
 
