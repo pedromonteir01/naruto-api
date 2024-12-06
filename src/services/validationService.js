@@ -1,19 +1,46 @@
-const pool = require('../config/database.config');
+const { verifyKekkeiGenkais } = require('../controllers/kekkeiGenkai.controller');
 
 const test = {
     attributes: ['one'],
     chakras: ['two'],
-    kekkei_genkai: ['three'],
-    kekkei_touta: ['four'],
-    affiliations: ['five'],
+    kekkei_genkais: ['three'],
+    kekkei_toutas: ['four'],
+    affiliations: 'none',
 }
 
+const verifyMetadata = async(data) => {
+    const keys = Object.keys(data);
+
+    //verifica se há todas as propriedades
+    if (!havePropierties(keys)) {
+        return false;
+    }
+
+    //verifica se os valores dos atributos conferem conforme o padrão do sistema
+    for (const key in data) {
+        const value = data[key];
+        if (!Array.isArray(value) && value !== 'none') {
+            return false;
+        }
+    }
+
+    //verifica as kekkei genkais
+    const isValid = await verifyKekkeiGenkais(data.kekkei_genkais);
+    if(!isValid) {
+        return false;
+    }
+
+
+    return true;
+};
+
+//verifica as propriedades do objeto data
 const havePropierties = (keys) => {
     const properties = [
         'attributes',
         'chakras',
-        'kekkei_genkai',
-        'kekkei_touta',
+        'kekkei_genkais',
+        'kekkei_toutas',
         'affiliations'
     ];
 
@@ -21,15 +48,6 @@ const havePropierties = (keys) => {
     const hasNoExtras = keys.every(key => properties.includes(key));
     return hasAllRequired && hasNoExtras;
 }
-
-const verifyMetadata = (data) => {
-    const keys = Object.keys(data);
-    if(havePropierties(keys)) {
-        
-    } else {
-        return false;
-    }
-};
 
 console.log(verifyMetadata(test));
 

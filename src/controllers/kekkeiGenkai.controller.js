@@ -116,4 +116,25 @@ const deleteKekkeiGenkai = async(req, res) => {
     }
 }
 
-module.exports = { getAllKekkeiGenkais, getKekkeiGenkai, getKekkeiGenkaiByName, createKekkeiGenkai, updateKekkeiGenkai, deleteKekkeiGenkai }
+const verifyKekkeiGenkais = async(kekkeiGenkais) => {
+    try {
+        const { rows } = await pool.query(
+            `SELECT * FROM kekkei_genkais WHERE name = ANY($1);`,
+            [kekkeiGenkais]
+        );
+
+        return rows.length === kekkeiGenkais.length;
+    } catch(e) {
+        throw new Error('Erro de servidor');
+    }
+}
+
+module.exports = { 
+    getAllKekkeiGenkais, 
+    getKekkeiGenkai, 
+    getKekkeiGenkaiByName, 
+    createKekkeiGenkai, 
+    updateKekkeiGenkai, 
+    deleteKekkeiGenkai,
+    verifyKekkeiGenkais 
+}
