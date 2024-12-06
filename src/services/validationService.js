@@ -1,3 +1,5 @@
+const pool = require('../config/database.config');
+
 const test = {
     attributes: ['one'],
     chakras: ['two'],

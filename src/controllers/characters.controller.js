@@ -1,6 +1,6 @@
 const pool = require('../config/database.config');
 const verifyDate = require('../utilities/verifyDate');
-const verifyMetadata = require('../utilities/verifyMetadata');
+const verifyMetadata = require('../services/validationService');
 
 const getAllCharacters = async (req, res) => {
     try {
