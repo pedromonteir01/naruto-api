@@ -1,5 +1,6 @@
 const pool = require('../config/database.config');
 const verifyDate = require('../utilities/verifyDate');
+const verifyMetadata = require('../utilities/verifyMetadata');
 
 const getAllCharacters = async (req, res) => {
     try {
@@ -49,6 +50,10 @@ const createCharacter = async (req, res) => {
         errors.push('Sexo inválido, H para homem, M para mulher, O para outro');
     }
 
+    if(!verifyMetadata(metadata)) {
+        errors.push('Os dados de seu personagem estão inválidos');
+    }
+
     if(!verifyDate(birthdate)) {
         errors.push('Data inválida, padrão (yyyy-mm-dd)');
     }
@@ -92,6 +97,10 @@ const updateCharacter = async (req, res) => {
 
     if (typeof gender !== 'string' || gender.length != 1) {
         errors.push('Sexo inválido, H para homem, M para mulher, O para outro');
+    }
+    
+    if(!verifyMetadata(metadata)) {
+        errors.push('Os dados de seu personagem estão inválidos');
     }
 
     if(!verifyDate(birthdate)) {
