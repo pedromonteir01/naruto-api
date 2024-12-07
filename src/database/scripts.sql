@@ -54,3 +54,8 @@ INSERT INTO kekkei_genkai (name, image, description, generate_by_comunnity) VALU
 ('Wood Release', 'test.png', 'A liberação de Madeira combina Terra e Água para criar madeira e manipular plantas.', FALSE),
 ('Steel Release', 'test.png', 'A liberação de Aço aumenta a durabilidade e resistência física do corpo do usuário.', FALSE),
 ('Blaze Release', 'test.png', 'A liberação de Chamas Negras permite manipular o Amaterasu para criar ataques mortais de fogo.', FALSE);
+
+INSERT INTO kekkei_touta (name, image, description, generate_by_comunnity) VALUES
+('Jinton', 'teste.png', 'A Kekkei Tōta que combina as naturezas Fogo, Terra e Vento, criando a Liberação de Poeira.', FALSE),
+('Shakuton', 'teste.png', 'Uma Kekkei Tōta que combina as naturezas Fogo e Vento, permitindo criar calor intenso.', FALSE),
+('Yoton', 'teste.png', 'A Kekkei Tōta que combina Fogo e Terra, criando lava em várias formas.', FALSE);
