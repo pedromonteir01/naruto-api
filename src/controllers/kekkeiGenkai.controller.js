@@ -64,7 +64,7 @@ const createKekkeiGenkai = async(req, res) => {
             [name, image, description, true]
         );
 
-        return res.status(201).send(kekkeiGenkai.rows);
+        return res.status(201).send(kekkeiGenkai.rows[0]);
     } catch(e) {
         return res.status(500).send({ error: 'Erro de servidor' });
     }

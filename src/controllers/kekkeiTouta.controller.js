@@ -64,7 +64,7 @@ const createKekkeiTouta = async(req, res) => {
             [name, image, description, true]
         );
 
-        return res.status(201).send(kekkeiTouta.rows);
+        return res.status(201).send(kekkeiTouta.rows[0]);
     } catch(e) {
         return res.status(500).send({ error: 'Erro de servidor' });
     }
@@ -93,7 +93,7 @@ const updateKekkeiTouta = async(req, res) => {
             [name, image, description, true]
         );
 
-        return res.status(200).send(kekkeiTouta.rows);
+        return res.status(200).send(kekkeiTouta.rows[0]);
     } catch(e) {
         return res.status(500).send({ error: 'Erro de servidor' });
     }
