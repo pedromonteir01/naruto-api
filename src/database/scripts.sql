@@ -12,6 +12,12 @@ CREATE TABLE characters (
     birthdate DATE
 );
 
+CREATE TABLE attributes (
+    name VARCHAR(256) PRIMARY KEY,
+    description TEXT NOT NULL,
+    generate_by_comunnity BOOLEAN NOT NULL
+);
+
 CREATE TABLE affiliations (
     name VARCHAR(256) PRIMARY KEY,
     image TEXT NOT NULL,
