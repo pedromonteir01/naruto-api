@@ -9,14 +9,14 @@ const verifyMetadata = async (data) => {
 
     //verifica se há todas as propriedades
     if (!havePropierties(keys)) {
-        return false;
+        return 'Estrutura do metadata inválida';
     }
 
     //verifica se os valores dos atributos conferem conforme o padrão do sistema
     for (const key in data) {
         const value = data[key];
         if (!Array.isArray(value) && value !== 'none') {
-            return false;
+            return `Valor da propriedade ${key} inválido, ${data[key]} não pertence`;
         }
     }
 

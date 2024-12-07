@@ -72,8 +72,6 @@ const createCharacter = async (req, res) => {
         return res.status(400).send({ error: errors[0] }); //retorna somente o primeiro erro por req para poupar gasto de memória
     }
 
-    return res.status(200).send({message: 'foi'});
- /*
     try {
         const character = await pool.query(`
             INSERT INTO characters(name, description, image, metadata, gender, birthdate) 
@@ -86,7 +84,7 @@ const createCharacter = async (req, res) => {
         })
     } catch (e) {
         return res.status(500).send({ error: 'Erro de servidor' });
-    } */
+    } 
 }
 
 
@@ -111,8 +109,17 @@ const updateCharacter = async (req, res) => {
         errors.push('Sexo inválido, H para homem, M para mulher, O para outro');
     }
     
-    if(!verifyMetadata(metadata)) {
-        errors.push('Os dados de seu personagem estão inválidos');
+    try {
+        const response = await verifyMetadata(metadata);
+        if(response.message) {
+            return res.status(500).send({ error: response.message });
+        }
+
+        if(response !== 'sucesso') {
+            errors.push(response);
+        }
+    } catch (e) {
+        errors.push(e.message); // Adiciona a mensagem do erro no array de erros
     }
 
     if(!verifyDate(birthdate)) {
