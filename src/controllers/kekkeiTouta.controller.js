@@ -110,7 +110,7 @@ const deleteKekkeiTouta = async(req, res) => {
             [name]
         );
 
-        return res.status(200).send(kekkeiTouta.rows);
+        return res.status(200).send(kekkeiTouta.rows[0]);
     } catch(e) {
         return res.status(500).send({ error: 'Erro de servidor' });
     }
