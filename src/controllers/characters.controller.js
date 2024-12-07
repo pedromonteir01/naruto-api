@@ -50,11 +50,14 @@ const createCharacter = async (req, res) => {
         errors.push('Sexo inválido, H para homem, M para mulher, O para outro');
     }
 
-    if(!await verifyMetadata(metadata)) {
-        errors.push('Os dados de seu personagem estão inválidos');
+    try {
+        const response = await verifyMetadata(metadata);
+        if (!response) {
+            errors.push('Dados inválidos');
+        }
+    } catch (e) {
+        errors.push(e.message); // Adiciona a mensagem do erro no array de erros
     }
-
-    console.log('passou');
     
 
     if(!verifyDate(birthdate)) {
@@ -62,8 +65,10 @@ const createCharacter = async (req, res) => {
     }
 
     if (errors.length > 0) {
-        return res.status(400).send(errors[0]); //retorna somente o primeiro erro por req para poupar gasto de memória
+        return res.status(400).send({ error: errors[0] }); //retorna somente o primeiro erro por req para poupar gasto de memória
     }
+
+    return;
  /*
     try {
         const character = await pool.query(`
@@ -111,7 +116,7 @@ const updateCharacter = async (req, res) => {
     }
 
     if (errors.length > 0) {
-        return res.status(400).send(errors[0]); //retorna somente o primeiro erro por req para poupar gasto de memória
+        return res.status(400).send({ error: errors[0]}); //retorna somente o primeiro erro por req para poupar gasto de memória
     }
 
     try {

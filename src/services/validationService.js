@@ -3,7 +3,7 @@ const { verifyKekkeiGenkais } = require('../controllers/kekkeiGenkai.controller'
 const test = {
     attributes: ['one'],
     chakras: ['two'],
-    kekkei_genkais: ['sharingan', 'rinnegan'],
+    kekkei_genkais: ['sharingan', 'rinnegan', 'test'],
     kekkei_toutas: ['four'],
     affiliations: 'none',
 }
@@ -28,9 +28,14 @@ const verifyMetadata = async (data) => {
     if (data.kekkei_genkais === 'none') {
         return true;
     }
-    const isValid = await verifyKekkeiGenkais(data.kekkei_genkais);
-    if (isValid === 'Erro de servidor, kekkei não encontrada') {
-        return false;
+
+    try {
+        const isValid = await verifyKekkeiGenkais(data.kekkei_genkais);
+        return isValid; // Retorna true ou false diretamente
+    } catch (error) {
+        if(error.message) {
+            return false;
+        }
     }
 
     return true;

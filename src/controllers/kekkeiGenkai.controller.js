@@ -117,16 +117,14 @@ const deleteKekkeiGenkai = async(req, res) => {
 }
 
 const verifyKekkeiGenkais = async(kekkeiGenkais) => {
-    console.log('chegou');
     try {
         const { rows } = await pool.query(
             `SELECT * FROM kekkei_genkai WHERE name = ANY($1);`,
             [kekkeiGenkais]
         );
-
         return rows.length === kekkeiGenkais.length;
     } catch(e) {
-        return 'Erro de servidor, kekkei não encontrada';
+        throw new Error('Erro de servidor, kekkei não encontrada');
     }
 }
 
