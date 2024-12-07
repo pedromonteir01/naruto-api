@@ -1,4 +1,4 @@
-const validChakras = ['fogo', 'água', 'terra', 'vento', 'relâmpago'];
+const validChakras = ['fogo', 'água', 'terra', 'vento', 'relâmpago', 'yang', 'yin', 'yin-yang'];
 
 const getAllChakras = (req, res) => {
     return res.status(200).send({ chakra: validChakras });

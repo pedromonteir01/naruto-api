@@ -48,11 +48,11 @@ const createAffiliation = async(req, res) => {
         return res.status(422).send({ message: 'Dados incompletos' });
     }
 
-    if(typeof name === 'string' || name.length < 3 || name.length > 100) {
+    if(typeof name !== 'string' || name.length < 3 || name.length > 100) {
         return res.status(400).send({ message: 'Nome inválido' });
     }
 
-    if(typeof description === 'string' || description.length < 10) {
+    if(typeof description !== 'string' || description.length < 10) {
         return res.status(400).send({ message: 'Descrição inválida' });
     }
 
@@ -77,11 +77,11 @@ const updateAffiliation = async(req, res) => {
         return res.status(422).send({ message: 'Dados incompletos' });
     }
 
-    if(typeof name === 'string' || name.length < 3 || name.length > 100) {
+    if(typeof name !== 'string' || name.length < 3 || name.length > 100) {
         return res.status(400).send({ message: 'Nome inválido' });
     }
 
-    if(typeof description === 'string' || description.length < 10) {
+    if(typeof description !== 'string' || description.length < 10) {
         return res.status(400).send({ message: 'Descrição inválida' });
     }
 

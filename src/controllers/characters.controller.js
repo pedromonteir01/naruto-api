@@ -105,7 +105,7 @@ const updateCharacter = async (req, res) => {
         errors.push('Descrição muito curta, deve conter no mínimo 10 caracteres');
     }
 
-    if (typeof gender !== 'string' || gender.length != 1) {
+    if (typeof gender !== 'string' || gender.length != 1 || gender === 'M' || gender === 'm' || gender === 'H' || gender === 'h' || gender === 'O' || gender === 'o') {
         errors.push('Sexo inválido, H para homem, M para mulher, O para outro');
     }
     
