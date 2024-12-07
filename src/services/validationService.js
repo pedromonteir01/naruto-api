@@ -24,19 +24,30 @@ const verifyMetadata = async (data) => {
         }
     }
 
-    //verifica as kekkei genkais
-    if (data.kekkei_genkais === 'none') {
-        return true;
-    }
 
-    try {
-        const isValid = await verifyKekkeiGenkais(data.kekkei_genkais);
-        return isValid; // Retorna true ou false diretamente
-    } catch (error) {
-        if(error.message) {
-            return false;
+    if (data.kekkei_genkais !== 'none') {
+        try {
+            const isValid = await verifyKekkeiGenkais(data.kekkei_genkais);
+            if (!isValid) {
+                return false;
+            }
+        } catch (error) {
+            return false; // Se ocorrer erro na verificação
         }
     }
+
+    // Verifica as Kekkei Tōtas
+    if (data.kekkei_toutas !== 'none') {
+        try {
+            const isValid = await verifyKekkeiTouta(data.kekkei_toutas);
+            if (!isValid) {
+                return false;
+            }
+        } catch (error) {
+            return false; // Se ocorrer erro na verificação
+        }
+    }
+
 
     return true;
 };
