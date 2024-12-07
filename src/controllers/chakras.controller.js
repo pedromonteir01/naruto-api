@@ -1,5 +1,10 @@
 const validChakras = ['fogo', 'água', 'terra', 'vento', 'relâmpago'];
-exports.verifyChakra = (chakras) => { 
+
+const getAllChakras = (req, res) => {
+    return res.status(200).send({ chakra: validChakras });
+}
+
+const verifyChakra = (chakras) => { 
     const invalid = chakras.filter((chakra) => !validChakras.includes(chakra));
 
     const verifiedChakras = {
@@ -9,3 +14,5 @@ exports.verifyChakra = (chakras) => {
 
     return verifiedChakras;
 }
+
+module.exports = { getAllChakras, verifyChakra }

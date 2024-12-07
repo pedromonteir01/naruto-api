@@ -16,3 +16,5 @@ affiliationsRoutes.get('/name/:name', getAffiliationsByName);
 affiliationsRoutes.post('/', createAffiliation);
 affiliationsRoutes.put('/:name', updateAffiliation);
 affiliationsRoutes.delete('/:name', deleteAffiliation);
+
+module.exports = affiliationsRoutes
