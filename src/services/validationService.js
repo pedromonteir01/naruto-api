@@ -1,3 +1,5 @@
+const { verifyAffiliations } = require('../controllers/affiliations.controller');
+const { verifyAttributes } = require('../controllers/attributes.controller');
 const { verifyChakra } = require('../controllers/chakras.controller');
 const { verifyKekkeiGenkais } = require('../controllers/kekkeiGenkai.controller');
 const { verifyKekkeiTouta } = require('../controllers/kekkeiTouta.controller');
@@ -58,7 +60,34 @@ const verifyMetadata = async (data) => {
             return error;
         }
     }
-};
+
+    if (data.attributes !== 'none') {
+        try {
+            const isValid = await verifyAttributes(data.attributes);
+            if (!isValid) {
+                return 'Algum dos atributos não existem';
+            } else {
+                return 'sucesso';
+            }
+        } catch(error) {
+            return error;
+        }
+    }
+
+    if (data.affiliations !== 'none') {
+        try {
+            const isValid = await verifyAffiliations(data.affiliations);
+            if (!isValid) {
+                return 'Alguma das afiliações não existem';
+            } else {
+                return 'sucesso';
+            }
+        } catch(error) {
+            return error;
+        }
+    }
+
+    };
 
 //verifica as propriedades do objeto data
 const havePropierties = (keys) => {
