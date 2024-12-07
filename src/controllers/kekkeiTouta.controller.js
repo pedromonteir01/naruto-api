@@ -124,7 +124,7 @@ const verifyKekkeiTouta = async(kekkeiToutas) => {
         );
         return rows.length === kekkeiToutas.length;
     } catch(e) {
-        throw new Error('Erro de servidor, kekkei não encontrada');
+        throw new Error('Erro de servidor, kekkei touta não encontrada');
     }
 }
 

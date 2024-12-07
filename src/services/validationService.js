@@ -1,12 +1,6 @@
+const { verifyChakra } = require('../controllers/chakras.controller');
 const { verifyKekkeiGenkais } = require('../controllers/kekkeiGenkai.controller');
-
-const test = {
-    attributes: ['one'],
-    chakras: ['two'],
-    kekkei_genkais: ['sharingan', 'rinnegan', 'test'],
-    kekkei_toutas: ['four'],
-    affiliations: 'none',
-}
+const { verifyKekkeiTouta } = require('../controllers/kekkeiTouta.controller');
 
 const verifyMetadata = async (data) => {
     const keys = Object.keys(data);
@@ -24,32 +18,46 @@ const verifyMetadata = async (data) => {
         }
     }
 
+    if (data.chakras !== 'none') {
+        if (!Array.isArray(data.chakras)) {
+            return 'Os chakras devem ser fornecidos como um array.';
+        }
+    
+        const response = verifyChakra(data.chakras);
+    
+        if (response.invalidChakras.length > 0) {
+            return `Os seguintes chakras são inválidos: ${response.invalidChakras.join(', ')}. Tente estes: ${response.chakras.join(', ')}`;
+        } else {
+            return 'sucesso';
+        }
+    }
+
 
     if (data.kekkei_genkais !== 'none') {
         try {
             const isValid = await verifyKekkeiGenkais(data.kekkei_genkais);
             if (!isValid) {
-                return false;
+                return 'Alguma das kekkei genkais não existem';
+            } else {
+                return 'sucesso';
             }
         } catch (error) {
-            return false; // Se ocorrer erro na verificação
+            return error;
         }
     }
 
-    // Verifica as Kekkei Tōtas
     if (data.kekkei_toutas !== 'none') {
         try {
             const isValid = await verifyKekkeiTouta(data.kekkei_toutas);
             if (!isValid) {
-                return false;
+                return 'Alguma das kekkei toutas não existem';
+            } else {
+                return 'sucesso';
             }
         } catch (error) {
-            return false; // Se ocorrer erro na verificação
+            return error;
         }
     }
-
-
-    return true;
 };
 
 //verifica as propriedades do objeto data
@@ -66,15 +74,5 @@ const havePropierties = (keys) => {
     const hasNoExtras = keys.every(key => properties.includes(key));
     return hasAllRequired && hasNoExtras;
 }
-
-(async () => {
-    try {
-        let result = await verifyMetadata(test);
-        console.log(result);
-    } catch (e) {
-        console.log(e);
-    }
-})();
-
 
 module.exports = verifyMetadata;

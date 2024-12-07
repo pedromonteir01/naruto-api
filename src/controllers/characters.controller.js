@@ -52,8 +52,12 @@ const createCharacter = async (req, res) => {
 
     try {
         const response = await verifyMetadata(metadata);
-        if (!response) {
-            errors.push('Dados inválidos');
+        if(response.message) {
+            return res.status(500).send({ error: response.message });
+        }
+
+        if(response !== 'sucesso') {
+            errors.push(response);
         }
     } catch (e) {
         errors.push(e.message); // Adiciona a mensagem do erro no array de erros
@@ -68,7 +72,7 @@ const createCharacter = async (req, res) => {
         return res.status(400).send({ error: errors[0] }); //retorna somente o primeiro erro por req para poupar gasto de memória
     }
 
-    return;
+    return res.status(200).send({message: 'foi'});
  /*
     try {
         const character = await pool.query(`
